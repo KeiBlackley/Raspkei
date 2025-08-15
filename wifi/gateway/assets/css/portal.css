@@ -1,0 +1,63 @@
+:root {
+   --col-rpi-red: #cd2355;
+   --col-rpi-litered: #d75a64;
+}
+
+body {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   margin: 40px auto;
+}
+
+h1, h2 { color: var(--col-rpi-red); }
+
+label.checkbox input:checked ~ .checkmark { background-color: var(--col-grey); border-radius: 8px; }
+label.checkbox .checkmark:after { background-color: var(--col-rpi-red); }
+
+input[type=submit] { background-color: var(--col-rpi-red); }
+input[type=submit]:hover { background-color:var(--col-green); }
+
+header {
+   margin: 20px;
+}
+
+.container {
+   width: 60%;
+   margin: 24px auto;
+   background: #fff;
+   padding: 8px 24px;
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.half-columns { display: flex; }
+.half-columns > div { width: 50%; }
+
+
+.hotspot-portal { width: 60%; background-color: white; }
+.hotspot-portal div { padding: 20px; }
+
+.hotspot-portal > .login h1, .hotspot-portal > .login h2 { border-bottom: 2px solid var(--col-rpi-red); }
+.hotspot-portal > .about h1, .hotspot-portal > .about h2 { color: white; border-bottom: 2px solid white; }
+.hotspot-portal > .about {
+   flex: 1;
+   background-color: var(--col-rpi-litered);
+   color: white;
+}
+
+footer > .copyright { float: left; }
+footer > .info { float: right; }
+footer::after {
+   content: "";
+   clear: both;
+   display: table;
+}
+
+@media only screen and (max-width: 768px) {
+   .half-columns { display: block; }
+   .half-columns > div { width: 100%; }
+
+   .hotspot-portal { width: 80%; }
+}

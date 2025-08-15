@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+      <meta http-equiv="Pragma" content="no-cache">
+      <meta http-equiv="Expires" content="0">
+      <meta charset="UTF-8">
+      <meta name="description" content="Portal Login for Hotspot.">
+      <meta name="author" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+      <link href="assets/css/global.css" rel="stylesheet" type="text/css" />
+
+      <title> {$gateway} Portal </title>
+
+      <link href="assets/css/portal.css" rel="stylesheet" type="text/css" />
+    </head>
+  </head>
+  <body>
+    <header>
+      <h1> {$gateway} </h1>
+    </header>
+
+    <div class="hotspot-portal half-columns">
+      <div class="login">
+        <h2> WiFi Portal </h2>
+        <p> Please complete below for Wi-Fi Access </p>
+
+        <form method="GET" action="$authaction">
+          <input type="hidden" name="tok" value="$tok">
+          <input type="hidden" name="redir" value="$redir">
+          
+          <!--
+          <label for="hotspot-username">Username:</label>
+          <input id="hotspot-username" type="text" name="username" placeholder="GUEST" />
+
+          <label for="hotspot-password">Password:</label>
+          <input id="hotspot-password" type="password" name="password" placeholder="* * * * * * * *" />
+          -->
+          
+          <label class="checkbox"> I agree to the <a href="tos.html">Terms & Conditions</a>. <br> Illegal file downloads are prohibited.
+            <input type="checkbox" required />
+            <span class="checkmark"></span>
+          </label>
+
+          <input type="submit" value="Continue" />
+        </form>
+      </div> <!-- .login -->
+
+      <div class="about">
+        <h2> WiFi Info </h2>
+        <p> <b>Note:</b> Your details have been logged and will be monitored. </p>
+        <br>
+        <ul> 
+          <li> [IP Address] <i>$clientip</i> </li>
+          <li> [MAC Address] <i>$clientmac</i> </li> 
+        </ul>
+
+        <center>
+          <button onclick="window.location.href='tos.html'"> View Terms of Service </button>
+        </center>
+      </div> <!-- .login -->
+    </div> <!-- .container -->
+
+    <footer>
+      <p class="copyright"> &copy; {$gateway} </p>
+      <p class="info"> [clis] $nclients - [upt] $uptime </p>
+    </footer>
+  </body>
+</html>

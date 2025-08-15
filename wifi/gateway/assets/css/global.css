@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root {
+  --col-kei-blue: #003454;
+  --col-kei-liteblue: #6f9deb;
+  --col-kei-cyan: #0c696e;
+  
+  --col-white: #f8f2f3;
+  --col-litewhite: #cedfd9;
+  
+  --col-grey: #adb5bd;
+  --col-litegray: #ced4da;
+  --col-darkgray: #495057;
+  
+  --col-green: #00C950;
+  --col-liteblue: #dbeafe;
+
+  --bg-lite: #eee;
+  --bg-dark: #333;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+   background-color: var(--bg-lite);
+   color: var(--col-kei-blue);
+}
+
+h1, h2, h3, h4 { 
+   font-family: "Quicksand", sans-serif; 
+   text-transform: uppercase; 
+   margin: 16px auto;
+}
+
+img { width: 50px; margin: 20px; }
+
+ul { list-style: none; }
+ul li { margin-left: 16px; }
+
+a, a:visited { color: var(--col-kei-liteblue); text-decoration: none; }
+a:hover { color: var(--col-kei-cyan); transition: 0.5s; }
+
+form {
+  overflow: auto;
+  width: 90%;
+  margin: 20px auto 0 auto;
+}
+
+input[type=text], 
+input[type=password],
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 20px;
+  display: inline-block;
+  border: 1px solid var(--col-grey);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+label.checkbox {
+  text-align: right;
+  display: block;
+  position: relative;
+  padding-left: 32px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: var(--col-grey);
+  border-radius: 4px;
+}
+/* On mouse-over, add a grey background color */
+label.checkbox:hover input ~ .checkmark { background-color: var(--col-litegray); transition: 0.5s; }
+/* When the checkbox is checked, add a blue background */
+label.checkbox input:checked ~ .checkmark { background-color: var(--col-kei-blue); border-radius: 8px; }
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+/* Show the checkmark when checked */
+label.checkbox input:checked ~ .checkmark:after { display: block; }
+/* Style the checkmark/indicator */
+label.checkbox .checkmark:after {
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+input[type=submit] {
+  float: right;
+  background-color: var(--col-darkgray);
+  color: white;
+  border: none;
+
+}
+input[type=submit]:hover { background-color: var(--col-grey);  }
+
+input[type=submit],
+button {
+   cursor: pointer;
+   font-weight: bold;
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   border-radius: 4px;
+   min-width: 40%;
+   max-width: 200px;
+   margin: 20px auto;
+   padding: 12px 20px;
+   transition: 0.4s;
+}
+input[type=submit]:hover,
+button:hover {
+   transform: scale(0.95);
+}
+
+button {
+   border: 0;
+   background-color: var(--col-kei-liteblue);
+   color: white;
+}
+button:hover { background-color: var(--col-darkgray); }
+button.alpha {
+   background-color: transparent;
+   border: 1px solid white;
+}
+
+footer {
+   background-color: var(--col-litegray);
+   color: var(--col-darkgray);
+   font-size: small;
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   text-align: center;
+   z-index: 99;
+   padding: 8px;
+}
