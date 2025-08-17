@@ -10,4 +10,3 @@ sudo usermod -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,net
 
 # Install Apache (installs php, mariadb)
 python scripts/pi/runapache.py
-
