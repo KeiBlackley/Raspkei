@@ -7,22 +7,30 @@ WEB_ROOT = "/var/www/html"
 INDEX_HTML = os.path.join(WEB_ROOT, "index.html")
 
 def secure_sql():
+    print("==> Securing MariaDB.\n")
     subprocess.run(["sudo", "mysql_secure_installation"])
     subprocess.run(["sudo", "service", "apache2", "restart"])
+    subprocess.run(["sudo", "systemctl", "stop", "mariadb"])
+    subprocess.run(["sudo", "mysqld_safe", "--skip-grant-tables", "--skip-networking", "&"])
+    print("==> Securing MariaDB.\n")
+    subprocess.run(["mysql", "-u", "root"])
+    subprocess.run(["FLUSH", "PRIVILEGES"])
+    subprocess.run(["ALTER", "USER", "'root'@'localhost'", "IDENTIFIED", "BY", "'$iteDatabas3'"])
+
 
 def install_dependencies():
-    print("Installing PHP...\n")
+    print("==> Installing PHP.\n")
     subprocess.run(["sudo", "apt-get", "install", "-y", "php"])
     subprocess.run(["sudo", "apt-get", "install", "-y", "php-mysql"])
     subprocess.run(["sudo", "apt", "install", "-y", "libapache2-mod-php"])
 
-    print("Installing MariaDB...\n")
+    print("==> Installing MariaDB.\n")
     subprocess.run(["sudo", "apt-get", "install", "-y", "mariadb-server", "mariadb-client"])
     secure_sql()
 
 # Install Apache
 def install_apache():
-    print("Installing Apache...\n")
+    print("==> Installing Apache.\n")
     subprocess.run(["sudo", "apt-get", "update"])
     subprocess.run(["sudo", "apt-get", "install", "-y", APACHE_SERVICE])
 
