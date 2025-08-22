@@ -38,10 +38,17 @@ This project is open-source as long as credentials of Original Developer ("@KeiB
 #### Prerequisites
 None should be needed if setup scripts are run correctly.
 Otherwise here they are:
+> Web
+
 - PHP8
 - MariaDB
 - Apache2
 - git
+
+> Hotspot
+hostapd
+dnsmasq
+iptables
 
 #### Installation
 > Clone repository
@@ -49,34 +56,35 @@ Otherwise here they are:
 git clone https://github.com/KeiBlackley/Raspkei
 ```
 
-> Set permissions
+> Run installation for Hotspot
 ```bash
 cd Raspkei
 
-sudo chmod +x install.sh
+sudo python3 wifi/runhotspit.py
+
+sudo reboot
 ```
 
-> Run installation
+> Check status
 ```bash
-./install.sh
-```
+sudo python3 wifi/checkhotspot.py
+``
 
-> You should see a message like:
-```bash
-[2025-08-18 07:27:00] [INFO] Raspkei Installation Complete.
+> You should see messages like:
+```
+running, correct, enabled, complete
 ```
 
 ### Testing
-> Set permissions
+> Hotspot connection
 ```
-cd Raspkei
-
-sudo chmod +x test.sh
+SSID: Raspkei
+PSW: [ check file / customise ]
 ```
 
-> Run test script
-```bash
-./test.sh
+> Open a web browser
+```
+You should be connected to the internet.
 ```
 
 ### Execute
@@ -104,32 +112,21 @@ python3 raspkei.py 		# use for Python3
 
 ### Quick Start
 ```
-usage: raspkei [options] app_name run_boolean
+usage: raspkei [options]
   options:
-    -u required_string			Sets SSID of Hotspot
-    -p required_string     		Sets Password of Hotspot
-    -n, --portal required_boolean     	Toggles Captive Portal
+    --apache required_boolean [on/off]			Installs Apache Web Server
+    --hotspot required_boolean [on/off]         Sets up WiFi Access Point
 ```
 
 ### Project Structure
 ```
-├── app/
-│   ├── raspkei.py         	# Application (python)
-│   └── run.sh			# Application (shell)
-├── assets/
-├── └── css/
-├── └── images/			# Assets Folder
-├── └── scripts/
-├── backups/
-│   ├── images/			# Image Backups of Raspberry Pi OS
-└── index.html            	# Web Docs
-└── README.md            	# Documentation (this file)
+
 ```
 
 ### Technical Details
 This project uses the following resources:
 
-- **Hotspot:** [RaspAP](https://raspap.com/) and [nodogsplash](https://nodogsplash.readthedocs.io/en/latest/)
+- **Hotspot:** [RaspAP](https://raspap.com/) and *Optional:*[nodogsplash](https://nodogsplash.readthedocs.io/en/latest/)
 	- *Optional:* VPN Provider (w/ OpenVPN)
 	- *Optional:* ADGuard DNS/Setup
 - **Web Assets:** keiom.com
