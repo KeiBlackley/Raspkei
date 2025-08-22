@@ -13,9 +13,9 @@ def secure_sql():
     subprocess.run(["sudo", "systemctl", "stop", "mariadb"])
     subprocess.run(["sudo", "mysqld_safe", "--skip-grant-tables", "--skip-networking", "&"])
     print("==> Securing MariaDB.\n")
-    subprocess.run(["mysql", "-u", "root"])
-    subprocess.run(["FLUSH", "PRIVILEGES"])
-    subprocess.run(["ALTER", "USER", "'root'@'localhost'", "IDENTIFIED", "BY", "'$iteDatabas3'"])
+    # Run SQL commands using mysql client
+    subprocess.run(["mysql", "-u", "root", "-e", "FLUSH PRIVILEGES;"])
+    subprocess.run(["mysql", "-u", "root", "-e", "ALTER USER 'root'@'localhost' IDENTIFIED BY 'raspkeidefault';"])
 
 
 def install_dependencies():

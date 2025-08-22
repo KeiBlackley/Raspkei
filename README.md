@@ -120,20 +120,28 @@ usage: raspkei [options]
 
 ### Project Structure
 ```
-
+Raspkei
+    -> web      # Web Server Files
+        -> runapache, resetapache
+    -> wifi     # Hotspot Files
+        -> runhotspot
+    -> win      # Windows Files 
 ```
 
 ### Technical Details
 This project uses the following resources:
 
+- **Web Server:** [Apache](https://www.apache.org/)
+    - [MariaDB](https://mariadb.org/)
+    - [PHP](https://www.php.net/)
 - **Hotspot:** [RaspAP](https://raspap.com/) and *Optional:*[nodogsplash](https://nodogsplash.readthedocs.io/en/latest/)
 	- *Optional:* VPN Provider (w/ OpenVPN)
 	- *Optional:* ADGuard DNS/Setup
-- **Web Assets:** keiom.com
 
 ### Usage
-- **Hotspot:**
-> SSID: Raspkei Hotspot
+> Hotspot
+
+SSID: Raspkei Hotspot
 PWD: sayplease
 	- **Captive Portal:** [raspkei.local:2050](http://raspkei.local:2050)
 		- **Gateway:** [raspkei.local](http://raspkei.local)
