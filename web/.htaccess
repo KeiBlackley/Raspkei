@@ -1,0 +1,4 @@
+RewriteEngine On
+
+# rewrite /12345 to /index.php?url=12345
+RewriteRule ^(\w+)/?$ index.php?url=$1 [L,QSA]

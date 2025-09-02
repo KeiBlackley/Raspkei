@@ -6,7 +6,7 @@ import subprocess
 import sys
 
 SSID = "Raspkei"
-PASSWORD = "sayplease"
+PASSWORD = "FuckOff123"
 AP_INTERFACE = "wlan0"
 INET_INTERFACE = "usb0"
 
@@ -100,8 +100,11 @@ exit 0
             f.writelines(lines)
 
 def enable_services():
-    run("sudo systemctl restart hostapd", check=False)
-    run("sudo systemctl restart dnsmasq", check=False)
+    # Stop services first for a clean restart
+    run("sudo systemctl stop hostapd", check=False)
+    run("sudo systemctl stop dnsmasq", check=False)
+    run("sudo systemctl start hostapd", check=False)
+    run("sudo systemctl start dnsmasq", check=False)
 
 def setup_systemd_service():
     service_content = f"""
@@ -132,6 +135,15 @@ def main():
     enable_services()
     setup_systemd_service()
     print("Hotspot setup complete. Reboot to activate.")
+
+# Device mapping file template for PHP integration
+DEVICE_MAP_PATH = "/etc/raspkei_devices.txt"
+if not os.path.exists(DEVICE_MAP_PATH):
+    with open(DEVICE_MAP_PATH, "w") as f:
+        f.write("# MAC_ADDRESS Device_Name\n")
+        f.write("b8:27:eb:12:34:56 Raspberry Pi\n")
+        f.write("f4:5c:89:ab:cd:ef Android Tablet\n")
+        f.write("# Add more MAC-to-name mappings here\n")
 
 if __name__ == "__main__":
     main()
