@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # Raspkei Hotspot Setup Script
 # Sets up a WiFi hotspot (SSID: Raspkei, Password: sayplease) on wlan0, shares internet from usb0, and enables auto-run on boot.
+
 import os
 import subprocess
 import sys
 
 SSID = "Raspkei"
-PASSWORD = "FuckOff123"
+PASSWORD = "sayplease"
 AP_INTERFACE = "wlan0"
 INET_INTERFACE = "usb0"
 

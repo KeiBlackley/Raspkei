@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from batt import INA219
 import json
 

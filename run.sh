@@ -25,6 +25,7 @@ function usage() {
     echo -e "\n"
     echo "  battery       Battery Stats. Script (py/batt.py)"
     echo "  batt_stats    Webserver Battery Stats. (py/batt_stats.py)"
+    echo "  movehtml      Move web files to /var/www/html (py/movehtml.py)"
     exit 1
 }
 
@@ -62,6 +63,9 @@ case "$COMMAND" in
         ;;
     batt_stats)
         safe_run python3 "$PY_DIR/batt_stats.py" "$@"
+        ;;
+    movehtml)
+        safe_run sudo python3 "$PY_DIR/movehtml.py" "$@"
         ;;
     help|--help|-h)
         usage

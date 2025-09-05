@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title></title>
+    <link type="text/css" href="theme/common.css?v=1694479784906" rel="stylesheet" />
+    <link type="text/css" href="theme/chosen.css?v=1694479784906" rel="stylesheet" />
+    <link href="favicon.ico" rel="shortcut icon" />
+    <meta name="viewport" initial-scale="1.0" />
+    <!--[if lt IE 9]>
+    <link type="text/css" href="theme/IE678css.css?v=1694479784906" rel="stylesheet" />
+<![endif]-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/lib/html5shiv.js?v=1694479784907"></script>
+    <script type="text/javascript" src="js/lib/excanvas.js?v=1694479784907"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div id='msgOverlay'>
+        <div><span id='msgDiv'></span></div>
+    </div>
+    <div id="mainBody-fluid">
+        <div id='topStatus' class="row-fluid">
+            <div id='lang'>
+                <div id="langLogoBar" class="row-fluid langborder langborderBg">
+                    <div class="span5" style="white-space:nowrap;">
+                        <img src="img/tesltra-logo.png?v=1694479784907" class="paddingleft10" />
+                        <img src="img/webguiheader.png?v=1694479784907" />
+                        <span id="webui_title" class="hide"></span>
+                    </div>
+                    <div id="statusBar" class="span7 side-right"
+                        style="margin-top: 0px;width: 571px; margin-left: 0px;height: 50px">
+                        <span style="font-size: 18px" class="statusItem hide" title="network_type" i18n="true"
+                            id="networkType" data-bind="text: networkType"></span>
+                        <span style="font-size: 21px" class="statusItem" title="network_provider_rplmn" i18n="true"
+                            id="operator" data-bind="text: networkOperator"></span>
+                        <span style="font-size: 21px" class="statusItem" title="network_provider_spn" i18n="true"
+                            id="spn" data-bind="text:spn"></span>
+                        <span class="statusItem hide" title="ota_title" i18n="true" id="OTA"
+                            data-bind="visible:OTAStatus" style="display: none">
+                            <a onclick="return showOTAAlert();">
+                                <img class="paddingbottom6" src="./img/update.gif" />
+                            </a>
+                        </span>
+                        <span class="statusItem" title="signal_strength" i18n="true" id="signal_strength">
+                            <span style="height: 40px;vertical-align: top;margin-right: -16px;line-height:70px"
+                                data-bind="text:networkType,visible:networkType()!='Limited Service'&&networkType()!='No Service'"></span>
+                            <!--img data-bind="visible:networkType()!='Limited Service'&&networkType()!='No Service',attr:{src:networkTypeImg}" /-->
+                            <i class="signal" data-bind="attr:{'class': signalCssClass}">&nbsp;</i>
+                            <img class="paddingbottom30" src="./img/roaming.png?v=1694479784907"
+                                data-bind="visible: roamingStatus() == 'R'" style="display: none;margin-left: -15px;" />
+                        </span>
+                        <!-- <span class="statusItem" title="wifi_status" i18n="true" id="wifi_status"
+                            data-bind="visible: hasWifi"><img class="paddingbottom20" id="wifi_status_img"
+                                data-bind="attr: {src: wifiStatusImg}" /></span>
+                        <span class="statusItem" title="search_radar" i18n="true" id="search_radar"
+                            data-bind="visible: wifi_dfs_status()=='2'||wifi_dfs_status()=='3'" style="display: none;">
+                            <img class="paddingbottom15" src="./img/icon_SearchingRadar.gif" />
+                        </span> -->
+                        <span data-bind="visible: deviceMode() == 'AUTO_LTE_GATEWAY'" style="line-height:70px"
+                            class="statusItem" title="connection_status" i18n="true" id="connection_status"><i
+                                id="icon_connection" class="icon_connection" style="line-height:45px"
+                                data-bind="attr:{'class': connectionCssClass}">&nbsp;</i></span>
+                        <span style="display: none;" class="statusItem" title="wan_status" i18n="true"
+                            data-bind="visible: deviceMode() == 'AUTO_DHCP'"><img id="wan_icon" class="paddingbottom20"
+                                src="./img/ic_wan.png?v=1694479784907" /></span>
+                        <span class="statusItem" title="sms_unread_count" i18n="true" id="sms_unread_count"
+                            data-bind="visible: showSmsIcon" style="display:none">
+                            <a onclick="return gotoSmsList();" href="javascript: void(0)">
+                                <img style="margin-bottom: 20px"
+                                    data-bind="visible: !showSmsDeleteConfirm() && smsUnreadCount() > 0"
+                                    src="./img/sms_unread.png?v=1694479784907" />
+                                <img style="margin-bottom: 20px"
+                                    data-bind="visible: !showSmsDeleteConfirm() && smsUnreadCount() <= 0"
+                                    src="./img/sms.png?v=1694479784907" />
+                                <img data-bind="visible: showSmsDeleteConfirm()" class="paddingbottom20"
+                                    src="./img/sms_full.gif" />
+                                <span data-bind="visible: smsUnreadCount() > 0, text: smsUnreadCount"
+                                    class="smsUnreadCount" style="margin-left: -22px"></span>
+                            </a>
+                        </span>
+                        <span class="statusItem hide" title="sim_status" i18n="true" id="statusItemSimStatus"><img
+                                data-bind="attr: {src: simStatus}" class="paddingbottom20" /></span>
+                        <span class="statusItem" title="battery_level" i18n="true" data-bind="visible: hasBattery && false"><img
+                                class="paddingbottom20" id="batteryCharging"
+                                data-bind="attr: {src: batteryPers}" /></span>
+                        <span style="display: none;" class="statusItem" title="external_charging" i18n="true"
+                            data-bind="visible: !hasBattery()"><img id="external_charging_icon" class="paddingbottom20"
+                                src="./img/external_charging.png?v=1694479784907" /></span>
+                        <span class="statusItem hide" title="roaming_status" i18n="true" id="roamingStatus"
+                            data-bind="visible: roamingStatus() == 'R'" style="display: none;"><img
+                                class="paddingbottom20" src="./img/roaming.png?v=1694479784907" /></span>
+                    </div>
+                </div>
+                <div style="height: 2px"></div>
+                <div id="Header_Tel">
+                    <div  style="display: none;" class='data-chart' data-bind="visible:showDatausage()&&isTelstraSimCard()">
+                        <div class="left-holder hide">
+                            <span class="chart-number" data-bind="text: connected_devices_size">0</span>
+                            <span class="chart-info-unit" data-bind="visible: connected_devices_size() == 0 || connected_devices_size() == 1">Device</span>
+                            <span class="chart-info-unit" data-bind="visible: connected_devices_size() != 0 && connected_devices_size() != 1">Devices</span>
+                        </div>
+                        <div class="right-holder">
+                            <span class="chart-number" data-bind="text:remaindays_Tel">0</span>
+                            <span class="chart-info-unit" data-bind="visible: remaindays_Tel() == 0 || remaindays_Tel() == 1">Day</span>
+                            <span class="chart-info-unit" data-bind="visible: remaindays_Tel() != 0 && remaindays_Tel() != 1">Days</span>
+                        </div>
+                        <div class="center-holder">
+                            <!-- <div data-bind="visible:showDatausage()&&isTelstraSimCard()&&isPostpaid()">
+                                <span class="used-data" data-bind="text: datausage_usedamount"></span><sup>.3</sup>
+                            </div>
+                            <div data-bind="visible:showDatausage()&&isTelstraSimCard()&&isPrepaid()">
+                                <span class="used-data" data-bind="text: datausage_Tel"></span>
+                            </div> -->
+                            <div data-bind="visible:showDatausage()&&isTelstraSimCard()&&isPostpaid()">
+                                <span class="used-data" data-bind="text: postpaid_data_integral"></span><sup class="used-data-fractional" data-bind="text: postpaid_data_fractional"></sup>
+                            </div>
+                            <div data-bind="visible:showDatausage()&&isTelstraSimCard()&&isPrepaid()">
+                                <span class="used-data" data-bind="text: prepaid_data_integral"></span><sup class="used-data-fractional" data-bind="text: prepaid_data_fractional"></sup>
+                            </div>
+                            <div class="used-data-info">
+                                <span class="used-data-unit" data-bind="text:datausage_unit"></span>
+                                <span
+                                    data-bind="text:datausage_postpaid_percent, visible:showDatausage()&&isTelstraSimCard()&&isPostpaid()"></span>
+                                <span style="display: none;color: white;"
+                                    data-bind="visible:showDatausage()&&isTelstraSimCard()&&isPostpaid()">used of</span>
+                                <span style="display: none;"
+                                    data-bind="visible:showDatausage()&&isTelstraSimCard()&&isPrepaid()">remaining</span>
+                            </div>
+                            <div style="display: none;" data-bind="visible:showDatausage()&&isTelstraSimCard()&&isPostpaid()">
+                                <div class="total-data-container">
+                                    <span class="total-data" data-bind="text:datausage_allotedamount"></span>
+                                    <span class="total-data-unit" data-bind="text: datausage_unit2"></span>
+                                </div>
+                            </div>
+                            <div style="display: none;" class="data-tips" data-bind="visible:showDatausage()&&isTelstraSimCard()&&isPrepaid()"
+                                trans="header_note_Tel"></div>
+                        </div>
+                        <input style="display:none;" data-width="200" data-height="200" class="knob"
+                            data-linecap="round" data-readOnly=true data-thickness="0.07" data-displayInput=false
+                            data-angleOffset=-126 data-angleArc=252 data-fgColor="#939598" data-bgColor="#939598">
+                    </div >
+                    <div id="Header_no_telstra" style="display: none;top: 230px;text-align: center;position: absolute;width: 960px;"
+                        data-bind="visible:!isTelstraSimCard() && modem_main_state() =='modem_init_complete'">
+                        <span style="font-size:28px;" trans="header_no_telstra"></span>
+                    </div>
+                    <div id="Header_onlyNewVersion_div"
+                        style="display:none;padding-top: 0px;height: 76px;"
+                        data-bind="visible:showNewVersionOnly()">
+                        <div class="percent_font_Tel"
+                            style="text-align: right;vertical-align: middle;">
+                            <span>&nbsp;</span>
+                        </div>
+                        <div id="header_alert_onlyNewVersion" class="header_alert_position color_darkblue"
+                            style="width: 70%;margin-top: 180px !important;">
+                            <ul id="header_alert_content_onlyNewVersion" style="width: 100%;text-align: center;">
+                                <li style="text-align: right;height: 21px;cursor: pointer"><img
+                                        id="close_img_onlyNewVersion" src="img/close.png?v=1694479784907"
+                                        onclick="hide_header_alert()" /></li>
+                                <li style="font-size: 16px;"><span
+                                        data-bind="text:header_notification"></span></li>
+                                <li style="font-size: 14px;padding-left: 25px;">
+                                    <span id="header_content1_onlyNewVersion"
+                                        data-bind="text:header_alert_content1"></span><br />
+                                    <a id="header_alert_link_onlyNewVersion" href=""><span
+                                            id="header_content3_onlyNewVersion" data-bind="text:header_alert_content3"
+                                            style="text-decoration: underline"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="Header_unavailable" style="display: none;height: 121px;padding-top: 100px; text-align: center;"
+                        data-bind="visible:!showDatausage()&&isTelstraSimCard()">
+                        <span style="font-size:28px;" trans="header_usageUNAVAILABLE"></span><br />
+                        <span style="font-size: 21px;text-align: left;"
+                            trans="header_unavailabletextLINK"></span>
+                        <a id="header_unavailable_link" onclick="goToLink(3)" target="_blank">
+                            <span trans="header_link"
+                                style="font-size: 21px;text-decoration: underline;color:#ffffff"></span>
+                        </a>
+                        <span style="font-size:15px;" trans="header_unavailabletextLINK2"></span><br />
+                        <span style="font-size: 15px;text-align: left;"
+                            trans="header_unavailabletext2"></span>
+                        <a id="header_unavailable_link2" onclick="goToLink(4)" target="_blank">
+                            <span trans="header_link2"
+                                style="font-size: 15px;text-decoration: underline;color:#ffffff"></span>
+                        </a><span style="font-size: 15px;text-align: left;">&nbsp)</span>
+                    </div>
+                    <div id="Header_available" style="display: none; margin-top: 10px;"
+                        data-bind="visible:showDatausage()&&isTelstraSimCard()&&isPrepaid()">
+                        <!-- <div class="percent_font_Tel"
+                            style="text-align: right;vertical-align: middle;float:left;width: 122px">
+                            <span id="Header_percent_Tel" style="font-size: 50px" data-bind="text:datausage_Tel"></span>
+                        </div>
+                        <div style="margin-top: -10px;float:left;width: 310px;text-align: right;padding-left: 10px">
+                            <div id='progress2_Tel'>
+                                <div class="progress-content_Tel">
+                                    <div class="side-left" style="margin-top: 30px;font-size: 23px">
+                                        <span>*</span>
+                                        <span class="side-left" data-bind="text:datausage_unit"></span>
+                                        <span style="color:#00C6FF">/</span>
+                                        <span class="side-right" data-bind="text:remaindays_Tel"></span>
+                                    </div>
+                                    <div class="progress-bar-container_Tel hide">
+                                        <div id="bar_Tel" class="progress-bar_Tel"></div>
+                                    </div>
+                                    <div id="progress_container_Tel" class="progress-prompt_Tel"
+                                        trans="header_note_Tel"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 1px;float:left;">
+                            <img src="img/vertical-line.png?v=1694479784907" style="height: 100px;width: 1px;margin-top: 8px" />
+                        </div> -->
+                        <div id="header_alert" class="header_alert_position" style="width: 70%">
+                            <ul id="header_alert_content" style="width: 100%;text-align: center;">
+                                <li style="text-align: right;height: 8px;cursor: pointer"><img id="close_img"
+                                        src="img/close.png?v=1694479784907" onclick="hide_header_alert()" /></li>
+                                <li style="font-size: 16px;margin-top: 10px;"><span
+                                        data-bind="text:header_notification"></span></li>
+                                <li>
+                                    <span id="header_content1" data-bind="text:header_alert_content1"></span>
+                                    <span id="header_content2" data-bind="text:header_alert_content2"></span>
+                                    <a id="header_alert_link" target="_blank"><span id="header_content3"
+                                            data-bind="text:header_alert_content3"
+                                            style="text-decoration: underline"></span></a>
+                                </li>
+                                <li>
+                                    <span data-bind="text: header_alert_content4"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="new_fota_info" class="color_darkblue" style="width: 70%; position: relative;top: 35px;left: 150px; height: 79px; display:none;">
+                        <ul style="width: 100%;text-align: center;">
+                            <li style="text-align: right;height: 8px;cursor: pointer"><img
+                                     src="img/close.png?v=1694479784907"
+                                    onclick="hide_new_fota_info_alert()" /></li>
+                            <li style="color: rgb(255, 255, 255); margin-top: 5px;">
+                                <span id="new_fota_info_content1" ></span>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div style="display: none" data-bind="visible:showDatausage()&&isTelstraSimCard() && isPostpaid()">
+                        <!-- <div class="percent_font_Tel"
+                            style="text-align: right;vertical-align: middle;float:left;width: 122px;margin-top:30px;">
+                            <span id="Header_percent_postpaid" style="font-size: 38px"
+                                data-bind="text:datausage_postpaid_percent"></span>
+                        </div> -->
+                        <!-- <div style="margin-top: -10px;float:left;width: 310px;text-align: right;padding-left: 10px">
+                            <div id='progress2_Tel_postpaid'>
+                                <div class="progress-content_Tel">
+                                    <div class="side-left" style="margin-top: 30px;font-size: 12px">
+                                        <span class="side-left" data-bind="text: datausage_usedamount"></span>
+                                        <span class="side-left" data-bind="text:datausage_unit"></span>
+                                        <span style="padding-left:2px">used</span>
+                                        <span class="floatright" style="padding-right:10px">
+                                            <span data-bind="text:remaindays_Tel"></span>
+                                            <span style="color:#00C6FF;">/</span>
+                                            <span data-bind="text:datausage_allotedamount"></span>
+                                            <span data-bind="text: datausage_unit2"></span>
+                                        </span>
+                                    </div>
+                                    <div class="progress-bar-container_Tel">
+                                        <div id="bar_Tel_postpaid"></div>
+                                    </div>
+                                    <div id="progress_container_Tel_postpaid" class="progress-prompt_Tel">
+                                        <div data-bind="visible: isDatausageExpired" class="floatleft colorRed">
+                                            <span data-bind="text:datausage_over"></span>&nbsp;<span
+                                                data-bind="text:datausage_unit3"></span> over
+                                        </div>
+                                        <div class="floatright" trans="header_note_Tel_postpaid""></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+
+
+                                <div id="header_alert_postpaid" class="header_alert_position" style="width: 70%">
+                                            <ul id="header_alert_content_postpaid" style="width: 100%;text-align: center;">
+                                                <li style="text-align: right;height: 8px;cursor: pointer"><img
+                                                        id="close_img_postpaid" src="img/close.png?v=1694479784907"
+                                                        onclick="hide_header_alert(true)" /></li>
+                                                <li style="font-size: 16px;margin-top: 10px;"><span
+                                                        id="header_notification_postpaid"
+                                                        data-bind="text:header_notification"></span></li>
+                                                <li style="margin-top:3px;">
+                                                    <div style="word-wrap:break-word;">
+                                                        <span style="word-wrap:break-word;word-break:normal;"
+                                                            id="header_content1_postpaid"
+                                                            data-bind="text:header_alert_content1"></span>
+                                                    </div>
+                                                    <span id="header_content2_postpaid"
+                                                        data-bind="text:header_alert_content2"></span>
+                                                    <a id="header_alert_link_postpaid" target="_blank"><span
+                                                            id="header_content3_postpaid"
+                                                            data-bind="text:header_alert_content3"
+                                                            style="text-decoration: underline;color:#FFF"></span></a>
+                                                </li>
+                                                <li>
+                                                    <span data-bind="text: header_alert_content4"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="themeContainer_div" class="row-fluid" style="position: relative;">
+                                    <div id="prepaidnumber" class="span4">
+                                        <label class="side-left" data-bind="text: prepaidnumber"></label>
+                                    </div>
+                                    <div id="themeContainer" class="span8 side-right">
+                                        <span id="themeSection" style="display: none;">
+                                            <span class="colorBlock default"
+                                                data-bind="css: {active: currentTheme() == 'style'}, click: function(data, event) { themeClickHandler(data, event, 'style') }">&nbsp;</span>
+                                            <!-- span class="colorBlock blue" data-bind="css: {active: currentTheme() == 'blue'}, click: function(data, event) { themeClickHandler(data, event, 'blue') }">&nbsp;</span-->
+                                            <span class="colorBlock mac"
+                                                data-bind="css: {active: currentTheme() == 'mac'}, click: function(data, event) { themeClickHandler(data, event, 'mac') }">&nbsp;</span>
+                                            <link data-bind="attr: {href: themeHref}" rel="stylesheet" id="customTheme"
+                                                type="text/css" />
+                                        </span>
+                                        <select id="language" class="marginright10 hide"
+                                            data-bind="options: languages, value: currentLan, optionsText: 'text', optionsValue: 'value', event:{ change: langChangeHandler}"></select>
+                                        <span id="login" data-bind="visible:!showLogout()">
+                                            <!-- <span trans="username"></span>
+                                            <input id="txtUser" autocomplete="off" class="require" type="text"
+                                                maxlength="32" value="Admin"  name="txtUser"  disabled/> -->
+                                            <span trans="password"></span>
+                                            <input id="txtPwd" autocomplete="off" class="require" type="password"
+                                                maxlength="32" name="txtPwd" />
+                                            <span id="txtRequire" class="colorRed hide"></span>
+                                            <input id="btnLogin" class="btn-1" type="button" trans="login" />
+                                        </span>
+                                        <span id="logout">
+                                            <a id="logoutlink" class="logout marginright10" trans="logout"
+                                                href="javascript:void(0)" data-bind="click:logout,visible:showLogout() "
+                                                style="display: none;"></a>
+                                        </span>
+                                        <!--<span><img src="img/bule_spe.png?v=1694479784907" width="3px" height="15px"></span>
+                    <span><a href="#traffic_statistics"><span class="index_toplink">My Data Usage</span></a></span>-->
+                                        <span  class="hide"><img src="img/bule_spe.png?v=1694479784907" width="3px" height="15px"></span>
+                                        <span id="helpBtn"><a href="javascript:void(0)" ><span
+                                                    class="index_toplink">Help</span></a></span>
+                                    </div>
+                                    <div id="helpMeau" class="tooltip-bottom hide">
+                                        <div style="height: 30px; margin-top: 10px;"><a href="http://zte.com.au/Manuals/MF833V_Help.pdf" target="_blank"><span
+                                            class="index_toplink">> User Guide (PDF)</span></a></div>
+                                        <div style="height: 30px;"><a href="#" id="resetBtn"><span
+                                                class="index_toplink">> Factory Reset</span></a></div>
+                                         <img  id="delete-helpMeau" src="./img/delete.png?v=1694479784907" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid blank_line">&nbsp;</div>
+                        <div class="row-fluid margintop5 marginbottom10">
+                            <label id="battery_note" class="battery_note hide" trans="battery_charge_protection"></label>
+                            <label id="battery_hot_note" class="battery_note hide" trans="battery_charge_protection_hot"></label>
+                        </div>
+                        <label id="log_screen_note" class="battery_note" trans="log_screen_note"></label>
+                        <div id='nav' data-bind="visible:showMenu()" class="row-fluid">
+                            <ul id="list-nav" data-bind="foreach: mainMenu" class="span12">
+                                <li data-bind='attr: {mid: hash.substring(1)}'>
+                                    <a data-bind='attr: {href: hash, trans: hash.substring(1)}'></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row-fluid">
+                            <div id="mainContainer" class="row-fluid">
+                                <div id='left' class="span3" data-bind='visible: secondMenu().length > 0'>
+                                    <ul id="leftmenu" data-bind="foreach: {data: secondMenu }">
+                                        <li data-bind="visible: false, text: $root.getThirdMenu($data)"></li>
+                                        <li data-bind="attr: {'class': 'menu-two-level ' + hash.substring(1) }">
+                                            <a data-bind='attr: {href: hash, trans: hash.substring(1)}'></a>
+                                        </li>
+                                        <li data-bind='visible: $root.thirdMenu().length > 0' class="hide">
+                                            <ul class="third" data-bind="foreach: $root.thirdMenu()">
+                                                <li
+                                                    data-bind="attr: {'class': 'menu-three-level ' + hash.substring(1) }">
+                                                    <a data-bind='attr: {href: hash, trans: hash.substring(1)}'></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id='container' class="span9 paddingnone"></div>
+                            </div>
+                        </div>
+                        <div id='footer' class="side-center" style="display:none">
+                            <span trans='copyright' class="hide"></span>
+                            <span class="copyBg">Click <a href="https://recharge.telstra.com.au/enternumber" target="_blank"><span
+                                        style="text-decoration: underline;color:#fff;">here</span></a> to access your
+                                Account Services</span>
+                        </div>
+                    </div>
+                    <div id='loading'>
+                        <div class='header'><span id="loadMsg"></span></div>
+                        <br />
+
+                        <div style='text-align: center'>
+                            <img id="loadingImg" />
+                            <div id="loading_container"></div>
+                        </div>
+                    </div>
+
+                    <div id='progress'>
+                        <div class='header'><span id="barMsg"></span></div>
+                        <br />
+                        <div class="progress-content">
+                            <div class="progress-bar-container">
+                                <div id="bar" class="progress-bar"></div>
+                                <div id="barValue" class="progress-bar-value"></div>
+                            </div>
+                            <div id="progress_container" class="progress-prompt" style="text-align: center;"></div>
+                        </div>
+                    </div>
+                    <!-- confirm content -->
+                    <div id='confirm'>
+                        <div class='header hide'><span id="popTitle"></span></div>
+                        <div class='icon'><img id='confirmImg' /></div>
+                        <div class='pop-message-container'><div class='message'></div></div>
+                        <div class='promptDiv hide'><input name="promptInput" id="promptInput" type="text"
+                                maxlength="25" class="width190" /><br />
+                            <label class="promptErrorLabel colorRed"></label></div>
+                        <div class='buttons'>
+                            <input type="button" class="btn-primary simplemodal-close" id='okbtn' trans='ok' />
+                            <input type="button" class="btn-primary marginright5" id='yesbtn' trans='yes' /><input type="button" class="btn-secondary simplemodal-close marginleft5" id='nobtn' trans='no' />
+                        </div>
+                    </div>
+
+                    <div id='confirm_Tel'>
+                        <div class='header_Tel'>
+                            <div class='icon span1' style="float:left"><img id='confirmImg_Tel' style="height: 45px" />
+                            </div>
+                            <div class="span1"><img src="img/vertical-line.jpg?v=1694479784907"
+                                    style="height: 60px;margin-top: 5px;margin-left: 10px;margin-right: 10px" /></div>
+                            <div class="span9"><span id="popTitle_Tel" style="font-size: 20px"></span></div>
+                            <div id="close_div" class="span1" style="padding-left: 125px;cursor:pointer "><img
+                                    id="close_div_img" src="img/close.png?v=1694479784907" onclick="hide_header_popup()" /></div>
+                        </div>
+                        <!--<div class='icon'><img id='confirmImg_Tel'/></div>-->
+                        <div class='message_Tel'></div>
+                        <div class='promptDiv hide'><input name="promptInput" id="promptInput_Tel" type="text"
+                                maxlength="25" class="width190" /><br />
+                            <label class="promptErrorLabel colorRed"></label></div>
+                        <div class='buttons_Tel' style="margin-top: 10px">
+                            <!--input type="button" class="btn-Tel simplemodal-close" id='okbtn_Tel' style="width: 150px" trans='ok'/-->
+                            <a id='okbtn_Tel' class="btn-Tel simplemodal-close"
+                                style="width:150px;padding:2px 35px;color:#000" trans='ok' target="_blank"></a>
+                            <input type="button" class="btn-Tel" id='yesbtn_Tel' trans='yes' />
+                            <input type="button" class="btn-Tel simplemodal-close" id='nobtn_Tel' trans='no' />
+                        </div>
+                    </div>
+                    <div id='confirm_sbm'>
+                        <div class='header'><span id="popTitle_sbm"></span></div>
+                        <div id="confirm-message-container_sbm">
+                            <div class='icon'><img id='confirmImg_sbm' /></div>
+                            <div class="confirm-message">
+                                <div class='message'></div>
+                                <div class='promptDiv hide'>
+                                    <input name="promptInput" id="promptInput_sbm" type="text" maxlength="25"
+                                        class="width190" /><br />
+                                    <label class="promptErrorLabel colorRed"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='buttons'>
+                            <input type="button" class="btn-primary simplemodal-close" id='okbtn_sbm' trans='ok' />
+                            <input type="button" class="btn-primary marginright5" id='yesbtn_sbm' trans='yes' />
+                            <input type="button" class="btn-secondary simplemodal-close marginleft5" id='nobtn_sbm' trans='no' />
+                        </div>
+                    </div>
+                    <div id='popupModifyFotaSetWindow'>
+                        <div class='header'>
+                            <p class="tag-popup-close"><a href="javascript:hidePopupModifyPwWindow();"></a></p>
+                        </div>
+                        <div id="fotaSetContainer" style="background: #fff;" class="modal-body"></div>
+                    </div>
+                    <div id="buttom-bubble">
+                    </div>
+                    <script type="text/x-jquery-tmpl" id="newMessagePopTmpl">
+    <div class="bubbleItem ${report}" id="${mark}">
+        <h3>
+                        <span trans="${titleTrans}">${title}</span> ${name} <a href="javascript:void(0);" data-targetid="${mark}" class="bubbleCloseBtn"></a>
+                </h3>
+        <div class="bubbleContainer">
+            <div class="bubbleContent">${content}</div>
+            <div class="bubbleDatetime">${datetime}</div>
+        </div>
+    </div>
+</script>
+                    <script type="text/javascript" data-main="js/main" src="js/lib/require/require-jquery.js?v=1694479784907"></script>
+</body>
+</html>

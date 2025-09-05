@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Raspkei Hotspot Diagnostic Script
 # Checks if the hotspot is set up and running correctly.
+
 import subprocess
 import sys
 import os

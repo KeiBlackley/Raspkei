@@ -1,10 +1,10 @@
 <?php
 // Run the Python script and capture output
-$output = shell_exec('python3 /home/kei/Raspkei/batt_stats.py 2>&1');
+$output = shell_exec('python3 /home/kei/Raspkei/py/batt_stats.py 2>&1');
 $stats = json_decode($output, true);
 // Debug output for troubleshooting
 if (!$stats) {
-    echo '<pre>Python output:\n' . htmlspecialchars($output) . '</pre>';
+    echo '<pre>Python output: ' . htmlspecialchars($output) . '</pre>';
 }
 ?>
 <!DOCTYPE html>
@@ -30,3 +30,4 @@ if (!$stats) {
     <?php endif; ?>
 </body>
 </html>
+

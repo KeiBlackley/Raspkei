@@ -83,23 +83,16 @@ If setup scripts are not run correctly, install the following:
 git clone https://github.com/KeiBlackley/Raspkei
 ```
 
-> Run installation for Hotspot
+> Set executes permissions
 ```bash
 cd Raspkei
 
-sudo python3 wifi/runhotspit.py
-
-sudo reboot
+sudo chmod +x run.sh
 ```
 
-> Check status
+> Run start script
 ```bash
-sudo python3 wifi/checkhotspot.py
-``
-
-> You should see messages like:
-```
-running, correct, enabled, complete
+./run.sh
 ```
 
 ### Testing
@@ -107,13 +100,15 @@ running, correct, enabled, complete
 ```
 SSID: Raspkei
 PSW: [ check file / customise ]
+
+./run.sh hotspot
+./run.sh checkhotspot
 ```
 
-> Open a web browser
+> You should see messages like:
 ```
-You should be connected to the internet.
+running, correct, enabled, complete
 ```
-
 ### Execute
 If `run.sh` exists:
 > Set permissions
@@ -125,7 +120,7 @@ sudo chmod +x run.sh
 
 > Run Raspkei
 ```bash
-./run.sh
+./run.sh [command]
 ```
 
 If `raspkei.py` exists and Python installed:
