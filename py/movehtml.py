@@ -3,7 +3,7 @@ import shutil
 import os
 import sys
 
-src = os.path.expanduser('~/Raspkei/web')
+src = os.path.expanduser('/home/kei/Raspkei/web')
 dest = '/var/www/html'
 
 try:
