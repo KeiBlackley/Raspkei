@@ -10,7 +10,6 @@ Raspberry Pi scripting tool for automation, designed to simplify tasks and impro
     * [Screenshots](#screenshots)
     * [Features](#features)
 - [Getting Started](#getting-started)
-    * [Prerequisites](#prerequisites)
     * [Installation](#installation)
     * [Testing](#testing)
     * [Execute](#execute) 
@@ -28,27 +27,55 @@ Essentially Raspkei is a set of scripts setup to help users configure and use th
 
 Mainly coded in Python3, also using shell, batch (for external Windows) and specific made programs to help automate and assist the user experience.
 
-This project is open-source as long as credentials of Original Developer ("@KeiBlackley"/GitHub) are mentioned and licence is copied over.
+This project is *Open-Source* **as long as** *credentials of the Original Developer* ("[@KeiBlackley](https://github.com/KeiBlackley)"/GitHub) or ("[Keirran Blaclkey](https://keirranblackley.com)") *are mentioned* and **Licence** is *copied over*.
 
-*Not all elements of Raspkei may be in this Documentation. Feel free to use this file as a guide.*
+**Not all elements of Raspkei may be in this Documentation. Feel free to use this file as a guide rather than instructions. Thank you**
 
 <hr/>
 
 ### Getting Started
-#### Prerequisites
-None should be needed if setup scripts are run correctly.
-Otherwise here they are:
-> Web
+### Prerequisites
+#### Hardware
+<details>
+<summary> Raspberry Pi </summary>
+A single <a href="https://www.raspberrypi.org/computers">Raspberry device</a> is required for this, the 3B+ is recommended for it's wireless options and portbut the complete project is being tested on:
 
-- PHP8
-- MariaDB
-- Apache2
-- git
+- 3 x RPi 3B+ (raspkei, raspkei3, raspkei3bp)
+- 1 x RPi 3B (raspkei3b)
+</details>
+<details>
+<summary> Accessories </summary>
+For The Raspkei Hotspot to work as a Wireless Access Point, you can use an Ethernet cable to be the Internet Input, otherwise for portability a USB Modem can be used. 
 
-> Hotspot
-hostapd
-dnsmasq
-iptables
+The one being used and tested for this project is:
+
+- <a href="https://www.telstra.com.au/internet/mobile-broadband/prepaid/4gx-mf833v-usb" target="_blank">Telstra 4G MF833v Modem</a>
+
+For additional portability, a battery powered UPS is used:
+
+- <a href="https://www.amazon.com.au/dp/B08BRPLY15" taget="_blank">Waveshare UPS HAT</a>
+</details>
+
+#### Software
+<details>
+<summary> Pre-Boot </summary>
+- <a href="https://www.raspberrypi.com/software/" target="_blank">Raspberry Pi Imager</a> [SSH Enabled / Hostname: <code>raspkei</code>]
+</details>
+<details>
+<summary> Dependencies </summary>
+If setup scripts are not run correctly, install the following:
+
+- Webserver:
+    - PHP8
+    - MariaDB
+    - Apache2
+    - git
+
+- Hotspot:
+    - hostapd
+    - dnsmasq
+    - iptables
+</details>
 
 #### Installation
 > Clone repository
