@@ -3,26 +3,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Raspkei</title>
+    
+    <title> Raspkei Project </title>
+    
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="assets/styles.css" />
-    <style>
-        body {
-            font-family: 'Quicksand', Arial, sans-serif;
-        }
-        .site-header {
-            background: #c51a4a;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/bottom-footer.css" />
 </head>
 <body>
     <header class="site-header">
-        <div class="logo"> RASPKEI </div>
+        <div class="logo"> <a href="index" class="logo"> <img src="assets/images/title.png" alt="Logo" /> </a> </div>
         
         <nav class="nav-links">
-        <a href="/docs.html">Documentation</a>
-        <a href="/about.html">About</a>
+        <a href="documentation">Documentation</a>
+        <a href="/about">About</a>
         </nav>
     </header>
 
@@ -36,5 +31,28 @@
         <img src="assets/images/rpi-board.png" alt="Custom Raspberry Pi Board" />
         </div>
     </main>
+
+    <footer>
+        <div class="container">
+            <div class="brand">
+                <a href="index" class="logo"> <img src="assets/images/title.png" alt="Logo" /> </a>
+
+                <p> Developed by GitHub/KeiBlackley </p>
+                <p class="copyright"> &copy; All rights reserved.</p>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li> <h3> Sitemap </h3> </li>
+                    <li> <a href="about">About</a> </li>
+                </ul>
+
+                <ul>
+                    <li> <h3> Resources </h3> </li>
+                    <li> <a href="documentation">Documentation</a> </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

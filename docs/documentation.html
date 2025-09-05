@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Raspkei Documentation </title>
+
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/bottom-footer.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo"> <a href="index" class="logo"> <img src="assets/images/title.png" alt="Logo" /> </a> </div>
+        
+        <nav class="nav-links">
+        <a href="documentation">Documentation</a>
+        <a href="/about">About</a>
+        </nav>
+    </header>
+
+    <main class="hero-section">
+        <section id="about">
+        <h2>About</h2>
+        <p>Raspkei is a Raspberry Pi scripting tool for automation, designed to simplify tasks and improve efficiency. Mainly coded in Python3, with shell, batch, and custom programs for automation and user experience.</p>
+        <p>This project is Open-Source as long as credentials of the Original Developer (<a href="https://github.com/KeiBlackley">@KeiBlackley</a>) or (<a href="https://keirranblackley.com">Keirran Blackley</a>) are mentioned and the license is copied over.</p>
+        </section>
+        <section id="getting-started">
+        <h2>Getting Started</h2>
+        <h3>Hardware</h3>
+        <ul>
+            <li>Recommended: Raspberry Pi 3B+ (tested on multiple models)</li>
+            <li>Optional: Telstra 4G MF833v Modem, Waveshare UPS HAT</li>
+        </ul>
+        <h3>Software</h3>
+        <ul>
+            <li>Raspberry Pi OS (use Raspberry Pi Imager, enable SSH, set hostname to <code>raspkei</code>)</li>
+            <li>Dependencies: PHP8, MariaDB, Apache2, git, hostapd, dnsmasq, iptables</li>
+        </ul>
+        <h3>Installation</h3>
+        <pre><code>git clone https://github.com/KeiBlackley/Raspkei
+    cd Raspkei
+    sudo chmod +x run.sh
+    ./run.sh
+    </code></pre>
+        </section>
+        <section id="quick-start">
+        <h2>Quick Start</h2>
+        <pre><code>usage: raspkei [options]
+    options:
+        --apache required_boolean [on/off]   Installs Apache Web Server
+        --hotspot required_boolean [on/off]  Sets up WiFi Access Point
+    </code></pre>
+        </section>
+        <section id="project-structure">
+        <h2>Project Structure</h2>
+        <pre><code>Raspkei
+        -> web      # Web Server Files
+            -> runapache, resetapache
+        -> wifi     # Hotspot Files
+            -> runhotspot
+        -> win      # Windows Files
+    </code></pre>
+        </section>
+        <section id="technical-details">
+        <h2>Technical Details</h2>
+        <ul>
+            <li><strong>Web Server:</strong> Apache, MariaDB, PHP</li>
+            <li><strong>Hotspot:</strong> RaspAP, Optional: nodogsplash, VPN, ADGuard DNS</li>
+        </ul>
+        </section>
+        <section id="usage">
+        <h2>Usage</h2>
+        <p>Hotspot SSID: <strong>Raspkei Hotspot</strong><br> Password: <strong>sayplease</strong></p>
+        <ul>
+            <li>Captive Portal: <a href="http://raspkei.local:2050">raspkei.local:2050</a></li>
+            <li>Gateway: <a href="http://raspkei.local">raspkei.local</a></li>
+        </ul>
+        </section>
+        <section id="support">
+        <h2>Support</h2>
+        <p>Show your support with a donation to the project.</p>
+        <a href="https://paypal.me/KeiBlackley"><img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal"></a>
+        </section>
+        <section id="license">
+        <h2>License</h2>
+        <p>This project is licensed under the MIT License.</p>
+        </section>
+        <section id="credits">
+        <h2>Credits &amp; Acknowledgements</h2>
+        <p>Developed by <a href="https://github.com/KeiBlackley">KeiBlackley</a>. See GitHub for contributors and acknowledgements.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="brand">
+                <a href="index" class="logo"> <img src="assets/images/title.png" alt="Logo" /> </a>
+
+                <p> Developed by GitHub/KeiBlackley </p>
+                <p class="copyright"> &copy; All rights reserved.</p>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li> <h3> Sitemap </h3> </li>
+                    <li> <a href="about">About</a> </li>
+                </ul>
+
+                <ul>
+                    <li> <h3> Resources </h3> </li>
+                    <li> <a href="documentation">Documentation</a> </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
